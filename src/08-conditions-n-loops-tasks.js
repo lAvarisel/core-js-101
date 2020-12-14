@@ -171,8 +171,17 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  let result = null;
+  for (let i = 0; i < str.length; i += 1) {
+    const index = str.indexOf(str[i]);
+    const lastInd = str.lastIndexOf(str[i]);
+    if (index === lastInd) {
+      result = str[i];
+      break;
+    }
+  }
+  return result;
 }
 
 /**
@@ -197,8 +206,16 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let result = '';
+  const left = isStartIncluded ? '[' : '(';
+  const right = isEndIncluded ? ']' : ')';
+  if (a < b) {
+    result = `${left}${a}, ${b}${right}`;
+  } else {
+    result = `${left}${b}, ${a}${right}`;
+  }
+  return result;
 }
 
 /**
@@ -213,8 +230,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -229,8 +246,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return parseInt(num.toString().split('').reverse().join(''), 10);
 }
 
 /**
@@ -367,25 +384,23 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
-  // let path = '';
-  // for (let i = 0; i < pathes[0].length; i += 1) {
-  //   let isCorrect = true;
-  //   for (let j = 0; j < pathes.length; j += 1) {
-  //     if (pathes[0][i] !== pathes[0][j]) {
-  //       isCorrect = false;
-  //       break;
-  //     }
-  //   }
-  //   if (isCorrect) {
-  //     path += pathes[0][i];
-  //   } else {
-  //     break;
-  //   }
-  // }
-  // console.log(path);
-  // return path.slice(0, path.lastIndexOf('/') + 1);
+function getCommonDirectoryPath(pathes) {
+  let path = '';
+  let isCorrect = true;
+  for (let i = 0; i < pathes[0].length; i += 1) {
+    for (let j = 1; j < pathes.length; j += 1) {
+      if (pathes[0][i] !== pathes[j][i]) {
+        isCorrect = false;
+        break;
+      }
+    }
+    if (isCorrect) {
+      path += pathes[0][i];
+    } else {
+      break;
+    }
+  }
+  return path.slice(0, path.lastIndexOf('/') + 1);
 }
 
 /**
